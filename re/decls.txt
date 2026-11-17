@@ -1,0 +1,213 @@
+23988-23991 lu (4L)
+  p: set:1 position:1 castShadow:1
+  s: 
+23992-24170 uu,du,fu (179L)
+  p: add:18 v:13 heading:11 width:11 x:9 bodyCz:9 z:7 bodyH:7 cabin:7 min:7 wheelbase:7 def:6
+  s: 
+24171-24186 pu (16L)
+  p: rot:2 cos:1 sin:1 hx:1 hz:1 push:1 x:1 z:1
+  s: 
+24187-24206 mu (20L)
+  p: abs:5 rot:4 cos:2 sin:2 x:2 z:2 hx:2 hz:2
+  s: 
+24207-24732 Y,hu,gu,_u,vu,yu,bu,xu,X,Z,Su,Cu,wu,Tu (526L)
+  p: going:9 def:7 queue:6 idle:6 type:6 random:4 gear:4 time:4 lastT:4 seen:3 patience:3 waiting:3
+  s: 
+24733-24759 Eu (27L)
+  p: y:11 x:11 lineTo:5 cos:2 sin:2 push:2 addScaledVector:2 clone:2 moveTo:1 length:1 rotateX:1 PI:1
+  s: 
+24760-24780 Du (21L)
+  p: fillStyle:2 createElement:1 width:1 height:1 getContext:1 padStart:1 toString:1 beginPath:1 roundRect:1 fill:1 strokeStyle:1 lineWidth:1
+  s: 
+24781-24953 Ou,ku,Au (173L)
+  p: group:7 glow:7 fade:6 t:3 y:3 position:3 min:3 sin:3 set:3 tag:3 sides:2 visible:2
+  s: "hint.title" "hint.goal" "hint.warn" "hint.pay" "hint.keys" "g.terus" "g.kiri"
+24954-24967 ju (14L)
+  p: languages:2 getItem:1 some:1 language:1 test:1 includes:1 timeZone:1 resolvedOptions:1 DateTimeFormat:1
+  s: 
+24968-24970 Mu,Nu,Pu (3L)
+  p: 
+  s: 
+24971-24974 Q (4L)
+  p: replace:1
+  s: 
+24975-24977 Fu (3L)
+  p: 
+  s: 
+24978-24986 Iu (9L)
+  p: forEach:2 querySelectorAll:2 dataset:2 lang:1 documentElement:1 textContent:1 i18n:1 setAttribute:1 i18nLabel:1
+  s: 
+24987-24990 Lu (4L)
+  p: setItem:1
+  s: 
+24991-24993 Ru (3L)
+  p: push:1
+  s: 
+24994-25142 zu (149L)
+  p: error:10 morphAttributes:9 attributes:6 length:6 push:5 index:4 count:4 morphTargetsRelative:3 position:3 keys:2 has:2 size:2
+  s: 
+25143-25197 Bu (55L)
+  p: error:4 array:3 gpuType:3 count:3 length:2 constructor:2 itemSize:2 normalized:2 isInterleavedBufferAttribute:1 getComponent:1 setComponent:1 set:1
+  s: 
+25198-25253 Vu,Hu,Uu (56L)
+  p: c:5 add:5 parts:4 set:4 base:3 m:3 p:2 q:2 e:2 s:2 compose:2 setFromEuler:2
+  s: 
+25254-25286 Wu (33L)
+  p: width:7 height:7 lineWidth:5 stripes:4 length:4 fillStyle:3 font:3 round:2 fillRect:2 forEach:2 border:2 replace:2
+  s: 
+25287-25292 Gu (6L)
+  p: dispose:2 material:2 traverse:1 isMesh:1 geometry:1
+  s: 
+25293-25301 Ku,qu,Ju,Yu,Xu,Zu,Qu (9L)
+  p: random:1
+  s: 
+25302-25324 $u (23L)
+  p: box:8 random:2 wheel:2 ball:2 build:1
+  s: 
+25325-25339 ed (15L)
+  p: box:6 wheel:3 random:1 build:1
+  s: 
+25340-25353 td (14L)
+  p: box:6 wheel:2 build:1
+  s: 
+25354-25370 nd (17L)
+  p: box:5 wheel:2 build:1
+  s: 
+25371-25383 rd (13L)
+  p: box:4 wheel:3 build:1
+  s: 
+25384-25403 id (20L)
+  p: mpv:3 group:2 add:2 random:1 city:1 z:1 position:1 bodyCz:1 build:1 box:1 length:1 v:1
+  s: 
+25404-25407 ad (4L)
+  p: random:1
+  s: 
+25408-25413 od (6L)
+  p: box:2 build:1 set:1 position:1
+  s: 
+25414-25455 sd (42L)
+  p: box:10 add:2 map:2 cone:1 build:1 userData:1 setScalar:1 scale:1
+  s: 
+25456-25464 cd (9L)
+  p: x:4 rotation:4 userData:1 sin:1
+  s: 
+25465-25465 ld (1L)
+  p: 
+  s: 
+25466-25483 ud (18L)
+  p: box:7 cyl:1 forEach:1 build:1
+  s: 
+25484-25528 dd (45L)
+  p: box:11 add:3 wheel:2 set:2 position:2 visible:2 build:1 y:1 rotation:1 PI:1 map:1 floor:1
+  s: 
+25529-25674 fd,pd,md,hd (146L)
+  p: state:12 list:8 obj:8 x:7 size:7 abs:7 min:6 z:6 v:6 floor:6 max:5 h:5
+  s: 
+25675-25690 gd (16L)
+  p: hz:5 hx:5 cz:3 max:2 ceil:2 push:2 rects:1
+  s: 
+25691-25696 _d (6L)
+  p: sin:1 cos:1 blocked:1
+  s: 
+25697-25740 vd,yd,bd,xd,Sd (44L)
+  p: f:6 length:5 a:4 push:1 pop:1
+  s: 
+25741-25793 Cd (53L)
+  p: x:7 z:7 abs:6 h:6 round:3 g:3 hypot:2 push:2 get:2 wheelbase:1 X0:1 Z0:1
+  s: 
+25794-25811 wd (18L)
+  p: dir:4 push:2 steer:2 parent:1 reverse:1 x:1 z:1 h:1 length:1 tan:1 sin:1 cos:1
+  s: 
+25812-25823 Td (12L)
+  p: h:3 length:1 max:1 round:1 push:1 x:1 sin:1 z:1 cos:1
+  s: 
+25824-25833 Ed,Dd,Od,kd,Ad,jd,Md,Nd,Pd,Fd (10L)
+  p: 
+  s: 
+25834-25843 Id (10L)
+  p: width:4 height:3 max:2 round:2 min:1 createElement:1 drawImage:1 getContext:1
+  s: 
+25844-25848 Ld (5L)
+  p: font:1 width:1 measureText:1
+  s: 
+25849-25857 Rd (9L)
+  p: push:2 length:2 split:1 width:1 measureText:1
+  s: 
+25858-25868 zd (11L)
+  p: save:1 strokeStyle:1 lineWidth:1 setLineDash:1 beginPath:1 moveTo:1 lineTo:1 stroke:1 restore:1
+  s: 
+25869-25992 Bd (124L)
+  p: fillStyle:15 fillText:11 font:10 width:6 textAlign:6 fillRect:5 beginPath:5 money:5 roundRect:4 height:3 measureText:3 fill:3
+  s: 
+25993-25995 Vd (3L)
+  p: toBlob:1
+  s: 
+25996-26242 Hd,Ud,Wd,Gd,Kd,qd,Jd,Yd,Xd,Zd,Qd,$d,ef,tf,nf,rf,af,of,sf,cf,lf,uf (247L)
+  p: x:26 z:26 rotation:13 position:9 abs:9 add:9 group:8 def:8 sin:7 min:7 pick:6 vx:5
+  s: 
+26243-26249 df (7L)
+  p: abs:2 push:2 reduce:1
+  s: 
+26250-26251 ff,pf (2L)
+  p: atan2:1 sin:1 cos:1 random:1
+  s: 
+26252-26264 mf (13L)
+  p: 
+  s: 
+26265-26271 hf,gf,_f,vf,yf,bf,xf (7L)
+  p: 
+  s: 
+26272-26313 Sf (42L)
+  p: hypot:3 push:3 max:2 round:2 PI:2 cos:2 sin:2 length:1 abs:1 min:1
+  s: 
+26314-28197 Cf,$,wf,Tf,Ef,Df,Of,kf (1884L)
+  p: hud:89 x:79 car:69 world:65 z:60 v:54 stage:52 holdPhase:35 min:33 abs:31 state:30 length:30
+  s: 
+28198-28245 Af (48L)
+  p: addEventListener:12 preventDefault:6 code:4 get:3 size:3 pointerId:3 set:2 add:1 delete:1 forEach:1 querySelectorAll:1 sig:1
+  s: 
+28246-28249 jf,Mf,Nf,Pf (4L)
+  p: 
+  s: 
+28250-28253 Ff (4L)
+  p: x:1 rotation:1 PI:1 set:1 position:1 receiveShadow:1 add:1
+  s: 
+28254-28555 If (302L)
+  p: box:69 cyl:32 at:21 PI:16 roadZ0:8 ball:8 roadZ1:6 roof:4 cone:4 forEach:4 add:3 farWalkZ1:3
+  s: 
+28556-29371 Lf,Rf,zf,Bf,Vf,Hf,Uf,Wf,Gf,Kf,qf (816L)
+  p: ctx:34 x:31 connect:30 gain:29 value:21 frequency:18 obj:18 v:18 random:16 createGain:14 currentTime:13 list:13
+  s: "Adanya segini, Pak." "Aduh! Mobil saya!" "Agak miring nih, Pak." "Aman. Lanjut patroli." "Ampun, Pak! Saya cuma bantu-bantu!" "Ayo dong, Pak!" "BAKSO GUE!! Kuahnya tumpah semua!"
+29375-29480 Jf,Yf (106L)
+  p: gain:11 sfx:9 playing:6 currentTime:6 ctx:5 filter:5 ends:5 who:5 length:4 driver:3 buffers:3 lastAmbient:3
+  s: 
+29481-29484 Xf (4L)
+  p: set:1 position:1 castShadow:1 receiveShadow:1
+  s: 
+29485-29488 Zf (4L)
+  p: x:1 rotation:1 PI:1 set:1 position:1
+  s: 
+29489-29862 Qf (374L)
+  p: add:29 position:22 set:16 x:14 bays:13 obstacles:13 ob:13 filter:13 random:12 motorSlots:11 PI:11 rotation:10
+  s: 
+29864-29864 $f (1L)
+  p: getElementById:1
+  s: 
+29866-29870 ep,tp,np,rp,ip (5L)
+  p: scene:1
+  s: 
+29873-29875 ap (3L)
+  p: unlock:1 preload:1
+  s: 
+29884-29887 op,sp (4L)
+  p: getElementById:1 settingsOpen:1 dispatchEvent:1 showSettings:1
+  s: 
+29918-29921 cp (4L)
+  p: insets:1 resize:1
+  s: 
+29925-29925 lp (1L)
+  p: now:1
+  s: 
+29926-29929 up (4L)
+  p: max:1 min:1 settingsOpen:1 update:1 layout:1 render:1
+  s: 

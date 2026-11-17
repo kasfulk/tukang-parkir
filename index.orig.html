@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#23262b" />
+    <meta name="description" content="Kamu tukang parkirnya. Terus, terus, kiri… STOP!" />
+    <title>Tukang Parkir</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231c5fd0'/%3E%3Ctext x='16' y='24' font-family='Arial' font-weight='900' font-size='22' text-anchor='middle' fill='white'%3EP%3C/text%3E%3C/svg%3E"
+    />
+    <script type="module" crossorigin src="/assets/index-B84SUXf5.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-ChqrgG0v.css">
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+
+    <div id="vignette"></div>
+
+    <header id="hud">
+      <div class="pill" id="time">90</div>
+      <div class="pill money" id="money">Rp0</div>
+      <div class="pill" id="cars"><span aria-hidden="true">🚗</span><b id="cars-n">0</b></div>
+      <button id="open-settings" data-i18n-label="set.title"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M19.4 13a7.6 7.6 0 0 0 0-2l2.1-1.6a.5.5 0 0 0 .1-.6l-2-3.5a.5.5 0 0 0-.6-.2l-2.5 1a7.3 7.3 0 0 0-1.7-1l-.4-2.6a.5.5 0 0 0-.5-.4h-4a.5.5 0 0 0-.5.4l-.4 2.6a7.3 7.3 0 0 0-1.7 1l-2.5-1a.5.5 0 0 0-.6.2l-2 3.5a.5.5 0 0 0 .1.6L4.6 11a7.6 7.6 0 0 0 0 2l-2.1 1.6a.5.5 0 0 0-.1.6l2 3.5c.1.2.4.3.6.2l2.5-1c.5.4 1.1.7 1.7 1l.4 2.6c0 .2.3.4.5.4h4c.2 0 .5-.2.5-.4l.4-2.6c.6-.3 1.2-.6 1.7-1l2.5 1c.2.1.5 0 .6-.2l2-3.5a.5.5 0 0 0-.1-.6L19.4 13ZM12 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7Z"/></svg></button>
+    </header>
+    <div id="driver"></div>
+
+    <div id="hint">
+      <strong data-i18n="hint.title"></strong>
+      <span data-i18n="hint.goal"></span>
+      <span class="warn" data-i18n="hint.warn"></span>
+      <span class="pay" data-i18n="hint.pay"></span>
+      <span class="warn" data-i18n="hint.satpol"></span>
+      <span class="keys" data-i18n="hint.keys"></span>
+    </div>
+
+    <div id="alert" hidden></div>
+
+    <div id="bubbles">
+      <div class="bubble tukang" id="b-tukang"></div>
+      <div class="bubble sopir" id="b-driver"></div>
+    </div>
+
+    <div id="controls">
+      <!-- Left thumb steers (and has the occasional taps), right thumb says which way and when to
+           stop. Both sides can be held at once. -->
+      <div class="cluster">
+        <button class="sig hold" data-sig="jalan" id="hold"><b>✋ TAHAN JALAN</b><i data-i18n="g.jalan"></i><kbd>E</kbd></button>
+        <button class="sig hide" data-sig="sembunyi" id="hide"><b>🙈 SEMBUNYI</b><i data-i18n="g.sembunyi"></i><kbd>H</kbd></button>
+        <div class="row">
+          <button class="sig steer" data-sig="kiri"><span class="arrow">◀</span><b>KIRI</b><i data-i18n="g.kiri"></i><kbd>A</kbd></button>
+          <button class="sig steer" data-sig="kanan"><span class="arrow">▶</span><b>KANAN</b><i data-i18n="g.kanan"></i><kbd>D</kbd></button>
+        </div>
+      </div>
+      <div class="cluster">
+        <button class="sig dir maju" data-sig="maju"><b><span class="arrow">▲</span> MAJU</b><i data-i18n="g.maju"></i><kbd>W</kbd></button>
+        <button class="sig stop" data-sig="stop"><b>STOP</b><kbd data-i18n="key.space"></kbd></button>
+        <button class="sig dir mundur engaged" data-sig="mundur"><b><span class="arrow">▼</span> MUNDUR</b><i data-i18n="g.mundur"></i><kbd>S</kbd></button>
+      </div>
+    </div>
+
+    <div id="settings" hidden>
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="set-title">
+        <div class="sheet-head">
+          <b id="set-title" data-i18n="set.title"></b>
+          <span class="sheet-paused" data-i18n="set.paused"></span>
+          <button id="close-settings" data-i18n-label="set.close">✕</button>
+        </div>
+        <div class="set-row">
+          <span data-i18n="lang.label"></span>
+          <div class="seg" id="set-lang">
+            <button data-lang="id">ID</button><button data-lang="en">EN</button>
+          </div>
+        </div>
+        <div class="set-row">
+          <span data-i18n="music.label"></span>
+          <button class="switch" id="set-music" role="switch"></button>
+        </div>
+        <div class="set-row">
+          <span data-i18n="mute.label"></span>
+          <button class="switch" id="set-sound" role="switch"></button>
+        </div>
+        <div class="set-row" id="row-haptics">
+          <span data-i18n="set.haptics"></span>
+          <button class="switch" id="set-haptics" role="switch"></button>
+        </div>
+        <details class="set-help">
+          <summary data-i18n="set.howto"></summary>
+          <p data-i18n="hint.goal"></p>
+          <p class="warn" data-i18n="hint.warn"></p>
+          <p data-i18n="set.howSteer"></p>
+          <p class="pay" data-i18n="hint.pay"></p>
+          <p class="warn" data-i18n="hint.satpol"></p>
+          <p class="keys" data-i18n="hint.keys"></p>
+        </details>
+        <button id="resume" class="primary" data-i18n="set.resume"></button>
+      </div>
+    </div>
+
+    <div id="result" hidden>
+      <div class="ticket">
+        <div class="ticket-head"><b data-i18n="r.head"></b><span id="r-title" data-i18n="r.title"></span></div>
+        <div class="ticket-stamp" id="r-stamp" hidden></div>
+        <div class="ticket-money" id="r-money">Rp0</div>
+        <div class="ticket-seized" id="r-seized" hidden></div>
+        <div class="ticket-rank" id="r-rank"></div>
+        <div class="ticket-emoji" id="r-emoji"></div>
+        <dl>
+          <div><dt data-i18n="r.cars"></dt><dd id="r-cars">0</dd></div>
+          <div><dt data-i18n="r.paidCars"></dt><dd id="r-paid-cars">0</dd></div>
+          <div><dt data-i18n="r.paidBikes"></dt><dd id="r-paid-bikes">0</dd></div>
+          <div><dt data-i18n="r.unpaid"></dt><dd id="r-unpaid">0</dd></div>
+          <div><dt data-i18n="r.scratch"></dt><dd id="r-scratch">0</dd></div>
+          <div><dt data-i18n="r.props"></dt><dd id="r-props">0</dd></div>
+          <div><dt data-i18n="r.best"></dt><dd id="r-best">Rp0</dd></div>
+        </dl>
+        <div class="actions">
+          <button id="r-again" class="primary" data-i18n="r.again"></button>
+          <button id="r-copy" data-i18n="r.copy"></button>
+          <button id="r-share" data-i18n="r.share"></button>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,13 @@
+{
+  "name": "tukang-parkir",
+  "private": true,
+  "version": "2.0.0",
+  "description": "Tukang Parkir \u2014 reverse-engineered, modular source build",
+  "type": "module",
+  "scripts": {
+    "build": "npx --yes esbuild@0.25 src/app/boot.js --bundle --format=esm --outfile=dist/app.js",
+    "build:min": "npx --yes esbuild@0.25 src/app/boot.js --bundle --minify --format=esm --outfile=dist/app.min.js",
+    "serve": "python3 -m http.server 8791",
+    "check": "for f in src/app/*.js; do node --input-type=module --check < \"$f\" || exit 1; done; echo syntax-ok"
+  }
+}

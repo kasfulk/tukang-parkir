@@ -1,32 +1,62 @@
-# Tukang Parkir — salinan mandiri
+# Tukang Parkir — rebuild + reverse engineering
 
-Duplikat statis dari https://tukang-parkir.akalstack.com (diambil 17-11-2026).
+Salinan mandiri dari https://tukang-parkir.akalstack.com, dibongkar kembali jadi source
+modular yang bisa diubah dan di-build ulang.
 
-Game 3D Three.js, satu bundle self-contained: tanpa CDN, tanpa API, tanpa font eksternal.
-Tidak ada yang perlu di-build.
+**Tanpa dependency eksternal**: Three.js ikut di dalam repo, audio disintesis, tidak ada
+CDN, font, atau API. Jalan offline.
+
+## Struktur
+
+- `index.html` — entry yang memakai hasil build (`dist/app.js`)
+- `index.orig.html` — entry asli, memakai bundle produksi apa adanya
+- `assets/` — bundle asli (`index-B84SUXf5.js`, 705 KB) + CSS
+- `src/vendor/three.js` — Three.js hasil ekstraksi dari bundle
+- `src/app/content.js` — data: layout lahan/jalan, harga, kendaraan, sopir, i18n
+- `src/app/engine.js` — mesh, fisika, crowd, A*, `World`, `View`
+- `src/app/game.js` — `Game`, `HUD`, input
+- `src/app/audio.js` — sintesis WebAudio + `Speech`
+- `src/app/boot.js` — perakitan
+- `dist/app.js` — hasil build (di-commit supaya bisa langsung deploy)
+- `re/` — pipeline reverse engineering (prettier + babel + esbuild)
+- `docs/MECHANICS.md` — aturan main lengkap dengan angka aslinya
 
 ## Jalankan
 
 ```bash
-python3 -m http.server 8791
-# buka http://localhost:8791
+npm run serve      # http://localhost:8791
+npm run build      # rebuild dist/app.js dari src/
+npm run check      # syntax check semua modul
 ```
 
 ## Deploy Vercel
 
-Framework: Other · Build Command: (kosong) · Output Directory: `.`
-
-## Isi
-
-- `index.html` — markup HUD, tombol sentuh, dialog
-- `assets/index-B84SUXf5.js` — bundle game (Three.js ter-inline, 705 KB)
-- `assets/index-ChqrgG0v.css` — styling HUD/kontrol
+Framework: Other · Build Command: `npm run build` · Output Directory: `.`
 
 Kontrol: A/D atau ◀ ▶ belok, W/S maju-mundur, spasi/STOP rem, E tahan jalan, H sembunyi.
 
+## Debug / modding
+
+DevTools console:
+
+```js
+__tp.PRICES.mobil = 8000;        // harga parkir berubah langsung
+__tp.TUNING.roundSeconds = 60;   // ronde 60 detik
+__game.reset();                  // mulai ulang pakai nilai baru
+__game.state                     // 'ready' | 'playing' | 'over'
+__game.money, __game.timeLeft    // skor berjalan
+```
+
+`__tp` memuat `AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE`. Untuk layout lahan
+butuh reload (`AREA` dibaca saat `World` dibangun).
+
 ## Hasil uji
 
-- Chromium headless WebGL 2.0, tanpa error console.
-- Timer jalan setelah input pertama (120 → 119), dialog sopir bereaksi ke perintah maju.
-- Desktop 1280×800 dan mobile 390×844: scene ter-render, HUD tidak terpotong,
-  tidak ada scroll horizontal (scrollWidth = 390).
+- Headless Chromium, WebGL 2.0, 0 error console.
+- Ronde berjalan: timer 120 → 119 setelah input pertama, dialog sopir bereaksi.
+- Sistem Satpol: `spawnPatrol()` memunculkan alert "Satpol PP datang 12 detik lagi".
+- Game over: `timeLeft = 1` → state `over`, layar hasil muncul.
+- Tuning live terbukti: `roundSeconds = 45` + `reset()` → HUD menampilkan 45.
+- Desktop 1280×800 dan mobile 390×844: scene ter-render, HUD utuh, tanpa scroll samping.
+
+Detail teknis: `docs/MECHANICS.md`.
