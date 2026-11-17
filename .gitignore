@@ -2,3 +2,5 @@ node_modules
 re/node_modules
 re/app.pretty.js
 .DS_Store
+.vercel
+.vercel
