@@ -35,6 +35,15 @@ Framework: Other · Build Command: `npm run build` · Output Directory: `.`
 
 Kontrol: A/D atau ◀ ▶ belok, W/S maju-mundur, spasi/STOP rem, E tahan jalan, H sembunyi.
 
+## Level
+
+Dua level, dipilih dari Settings atau `?level=sempit`:
+
+- *Pasar Pagi* — 7 bay, ronde 120 s, harga standar.
+- *Lahan Sempit* — 5 bay lebih lebar, ronde 90 s, Satpol lebih rajin, harga lebih tinggi.
+
+Skor terbaik disimpan per level. Definisi level ada di `src/app/levels.js`.
+
 ## Debug / modding
 
 DevTools console:
@@ -47,7 +56,7 @@ __game.state                     // 'ready' | 'playing' | 'over'
 __game.money, __game.timeLeft    // skor berjalan
 ```
 
-`__tp` memuat `AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE`. Untuk layout lahan
+`__tp` memuat `AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE, LEVELS, LEVEL`. Untuk layout lahan
 butuh reload (`AREA` dibaca saat `World` dibangun).
 
 ## Hasil uji
@@ -57,6 +66,8 @@ butuh reload (`AREA` dibaca saat `World` dibangun).
 - Sistem Satpol: `spawnPatrol()` memunculkan alert "Satpol PP datang 12 detik lagi".
 - Game over: `timeLeft = 1` → state `over`, layar hasil muncul.
 - Tuning live terbukti: `roundSeconds = 45` + `reset()` → HUD menampilkan 45.
+- Level: `?level=sempit` → 5 bay, timer 90, harga 6.500; 5 bay semuanya di dalam batas
+  lahan, tidak ada prop statis yang menabrak bay.
 - Desktop 1280×800 dan mobile 390×844: scene ter-render, HUD utuh, tanpa scroll samping.
 
 Detail teknis: `docs/MECHANICS.md`.

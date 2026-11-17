@@ -680,6 +680,9 @@ var I18N_TABLE = {
   ],
   "share.rank": [`Pangkat: {rank}`, `Rank: {rank}`],
   "lang.label": [`Bahasa`, `Language`],
+  "level.label": [`Level`, `Level`],
+  "level.pasar": [`Pasar Pagi`, `Morning Market`],
+  "level.sempit": [`Lahan Sempit`, `Tight Lot`],
   "mute.label": [`Suara`, `Sound`],
   "music.label": [`Musik`, `Music`],
   "set.title": [`Pengaturan`, `Settings`],
@@ -20002,6 +20005,73 @@ var View = class e20 {
   }
 };
 
+// src/app/levels.js
+var LEVELS = [
+  {
+    id: "pasar",
+    name: { id: "Pasar Pagi", en: "Morning Market" },
+    blurb: { id: "Lahan standar, 7 slot.", en: "Standard lot, 7 bays." },
+    area: {},
+    tuning: {},
+    prices: {}
+  },
+  {
+    id: "sempit",
+    name: { id: "Lahan Sempit", en: "Tight Lot" },
+    blurb: {
+      id: "5 slot lebar, ronde 90 detik, Satpol lebih rajin.",
+      en: "5 wide bays, 90s round, Satpol patrols sooner."
+    },
+    area: { bays: 5, bayW: 3.2 },
+    tuning: {
+      roundSeconds: 90,
+      patrolFirstIn: [25, 35],
+      patrolNextIn: [20, 30],
+      passByIn: [2, 5]
+    },
+    prices: { mobil: 6500, motor: 2500, scratch: 1200, crooked: 1200, tip: 1500 }
+  }
+];
+var DEFAULT_LEVEL = "pasar";
+var CURRENT_LEVEL = DEFAULT_LEVEL;
+function readLevelId() {
+  try {
+    const fromUrl = new URLSearchParams(location.search).get("level");
+    if (fromUrl && LEVELS.some((l2) => l2.id === fromUrl)) return fromUrl;
+    const saved = localStorage.getItem("tp-level");
+    if (saved && LEVELS.some((l2) => l2.id === saved)) return saved;
+  } catch {
+  }
+  return DEFAULT_LEVEL;
+}
+function getLevel(id2) {
+  return LEVELS.find((l2) => l2.id === id2) || LEVELS[0];
+}
+function applyLevel(id2) {
+  const level = getLevel(id2);
+  Object.assign(AREA, level.area);
+  Object.assign(TUNING, level.tuning);
+  Object.assign(PRICES, level.prices);
+  CURRENT_LEVEL = level.id;
+  try {
+    const legacy = localStorage.getItem("tp-best");
+    if (legacy !== null && localStorage.getItem(bestKey(level.id)) === null) {
+      localStorage.setItem(bestKey(level.id), legacy);
+    }
+  } catch {
+  }
+  return level;
+}
+function setLevel(id2) {
+  try {
+    localStorage.setItem("tp-level", id2);
+  } catch {
+  }
+}
+function bestKey(id2) {
+  return `tp-best:${id2}`;
+}
+
 // src/app/game.js
 var Game = class {
   constructor(e21, t2, n2, r3) {
@@ -20629,8 +20699,8 @@ var Game = class {
       this.dirs = [];
     } else {
       this.sfx.whistle(3);
-      let e21 = Math.max(this.money, Number(localStorage.getItem(`tp-best`) ?? -1 / 0));
-      localStorage.setItem(`tp-best`, String(e21)), this.showResult();
+      let e21 = Math.max(this.money, Number(localStorage.getItem(bestKey(CURRENT_LEVEL)) ?? -1 / 0));
+      localStorage.setItem(bestKey(CURRENT_LEVEL), String(e21)), this.showResult();
     }
   }
   showResult() {
@@ -20654,7 +20724,7 @@ var Game = class {
 `);
     this.hud.showResult({
       money: this.money,
-      best: Number(localStorage.getItem(`tp-best`) ?? (this.busted ? 0 : this.money)),
+      best: Number(localStorage.getItem(bestKey(CURRENT_LEVEL)) ?? (this.busted ? 0 : this.money)),
       rank: n2,
       emoji: t2,
       cars: e21,
@@ -21298,6 +21368,8 @@ function bindInput(e21, t2) {
 for (let [e21, t2] of Object.entries(STRINGS)) qf(t2, e21);
 for (let e21 of Object.values(DRIVERS)) qf(e21.intro, `driver`), qf(e21.chatter, `chatter`);
 for (let e21 of Hf) Gf.set(e21, e21), Kf.set(e21, `shout`);
+var LEVEL_ID = readLevelId();
+var LEVEL = applyLevel(LEVEL_ID);
 applyI18n();
 var $f = new View(document.getElementById(`c`));
 buildWorldMeshes($f.scene);
@@ -21306,7 +21378,7 @@ var tp = new HUD();
 var np = new AudioEngine();
 var rp = new Game($f, tp, np, ep);
 var ip = new Speech(np);
-var __tp = { AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE };
+var __tp = { AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE, LEVELS, LEVEL };
 window.__tp = __tp;
 window.__game = rp;
 window.__view = $f;
@@ -21333,7 +21405,13 @@ op(`open-settings`).addEventListener(`click`, () => {
   ap(), sp(!tp.settingsOpen);
 }), op(`close-settings`).addEventListener(`click`, () => sp(false)), op(`resume`).addEventListener(`click`, () => sp(false)), op(`settings`).addEventListener(`click`, (e21) => {
   e21.target === e21.currentTarget && sp(false);
-}), document.querySelectorAll(`#set-lang [data-lang]`).forEach((e21) => e21.addEventListener(`click`, () => setLang(e21.dataset.lang))), tp.setMuted(np.muted), op(`set-sound`).addEventListener(`click`, () => {
+}), document.querySelectorAll(`#set-lang [data-lang]`).forEach((e21) => e21.addEventListener(`click`, () => setLang(e21.dataset.lang))), document.querySelectorAll(`#set-level [data-level]`).forEach((e21) => {
+  e21.classList.toggle(`on`, e21.dataset.level === LEVEL_ID);
+  e21.addEventListener(`click`, () => {
+    setLevel(e21.dataset.level);
+    location.reload();
+  });
+}), tp.setMuted(np.muted), op(`set-sound`).addEventListener(`click`, () => {
   ap(), tp.setMuted(np.toggleMute());
 }), tp.setMusic(np.musicOn), op(`set-music`).addEventListener(`click`, () => {
   ap(), tp.setMusic(np.toggleMusic());

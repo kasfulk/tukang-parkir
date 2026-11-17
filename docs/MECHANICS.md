@@ -94,6 +94,22 @@ Satpol muncul dengan peringatan `🚨 Satpol PP datang N detik lagi!`. Kalau tid
 - `shadowMap.type = 1` (PCFSoftShadowMap sudah dihapus Three; warning hilang).
 - Build dari source: `npm run build` (esbuild, ~930 KB, tanpa CDN).
 
+## Level
+
+`src/app/levels.js` mendefinisikan level sebagai *patch* di atas data dasar:
+
+- `pasar` (default) — 7 bay 2,8 m, ronde 120 s, harga standar.
+- `sempit` — 5 bay 3,2 m, ronde 90 s, Satpol 25–35 s lalu 20–30 s, harga mobil 6.500.
+
+Level dipilih lewat `?level=sempit` atau tombol di Settings (tersimpan di
+`localStorage['tp-level']`). Patch diterapkan sekali saat boot, sebelum `View`/`World`
+membangun geometri — karena itu ganti level = reload. Skor terbaik disimpan per level
+(`tp-best:<id>`), dengan migrasi otomatis dari kunci lama `tp-best`.
+
+Menambah level: tambah entri di `LEVELS` dengan `area`, `tuning`, `prices` (semua opsional)
+dan tombol `data-level` di `index.html`. Batas geometri: `bays × bayW` harus muat di
+`minX…maxX`, dan `bayD` tidak boleh melewati `minZ`.
+
 ## Cara memodifikasi
 
 ```js

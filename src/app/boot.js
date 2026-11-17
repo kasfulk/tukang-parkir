@@ -16,10 +16,13 @@ import {
 import { AudioEngine, Gf, Hf, Kf, Speech, Vf, qf } from "./audio.js";
 import { View, World, buildWorldMeshes } from "./engine.js";
 import { Df, Game, HUD, Of, bindInput } from "./game.js";
+import { LEVELS, applyLevel, readLevelId, setLevel } from "./levels.js";
 
 for (let [e, t] of Object.entries(STRINGS)) qf(t, e);
 for (let e of Object.values(DRIVERS)) (qf(e.intro, `driver`), qf(e.chatter, `chatter`));
 for (let e of Hf) (Gf.set(e, e), Kf.set(e, `shout`));
+const LEVEL_ID = readLevelId();
+const LEVEL = applyLevel(LEVEL_ID);
 applyI18n();
 var $f = new View(document.getElementById(`c`));
 buildWorldMeshes($f.scene);
@@ -34,7 +37,7 @@ var ip = new Speech(np);
 //   __game.state, __game.timeLeft, __game.money
 //   __tp.TUNING.roundSeconds = 45; __game.reset()
 //   __tp.AREA.bays = 9            (needs a reload; world is built once)
-var __tp = { AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE };
+var __tp = { AREA, STREET, TUNING, PRICES, VEHICLES, NPC_DRIVE, LEVELS, LEVEL };
 window.__tp = __tp;
 window.__game = rp;
 window.__view = $f;
@@ -72,6 +75,13 @@ var sp = (e) => {
   document
     .querySelectorAll(`#set-lang [data-lang]`)
     .forEach((e) => e.addEventListener(`click`, () => setLang(e.dataset.lang))),
+  document.querySelectorAll(`#set-level [data-level]`).forEach((e) => {
+    e.classList.toggle(`on`, e.dataset.level === LEVEL_ID);
+    e.addEventListener(`click`, () => {
+      setLevel(e.dataset.level);
+      location.reload();
+    });
+  }),
   tp.setMuted(np.muted),
   op(`set-sound`).addEventListener(`click`, () => {
     (ap(), tp.setMuted(np.toggleMute()));

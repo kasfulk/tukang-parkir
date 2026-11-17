@@ -58,6 +58,7 @@ import {
   pickLang,
   trApp,
 } from "./content.js";
+import { CURRENT_LEVEL, bestKey } from "./levels.js";
 
 var Game = class {
   constructor(e, t, n, r) {
@@ -1183,8 +1184,8 @@ var Game = class {
       this.dirs = [];
     } else {
       this.sfx.whistle(3);
-      let e = Math.max(this.money, Number(localStorage.getItem(`tp-best`) ?? -1 / 0));
-      (localStorage.setItem(`tp-best`, String(e)), this.showResult());
+      let e = Math.max(this.money, Number(localStorage.getItem(bestKey(CURRENT_LEVEL)) ?? -1 / 0));
+      (localStorage.setItem(bestKey(CURRENT_LEVEL), String(e)), this.showResult());
     }
   }
   showResult() {
@@ -1217,7 +1218,7 @@ var Game = class {
 `);
     this.hud.showResult({
       money: this.money,
-      best: Number(localStorage.getItem(`tp-best`) ?? (this.busted ? 0 : this.money)),
+      best: Number(localStorage.getItem(bestKey(CURRENT_LEVEL)) ?? (this.busted ? 0 : this.money)),
       rank: n,
       emoji: t,
       cars: e,
